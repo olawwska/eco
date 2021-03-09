@@ -1,6 +1,7 @@
 import React from "react";
 
 import { Map } from "./Map";
+import SectionSelect from "./Select";
 
 export class Container extends React.Component {
     render() {
@@ -15,6 +16,7 @@ export class Container extends React.Component {
 
         return (
             <div style={style}>
+                <SectionSelect />
                 <Map google={this.props.google} />
             </div>
         );

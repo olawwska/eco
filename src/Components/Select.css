@@ -1,0 +1,5 @@
+.select__wrapper {
+    padding: 20px 400px;
+    display: flex;
+    flex-direction: column;
+}

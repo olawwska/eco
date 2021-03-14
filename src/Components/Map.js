@@ -50,6 +50,19 @@ export class Map extends React.Component {
             this.map = new maps.Map(node, mapConfig);
         }
     }
+
+    renderChildren() {
+        const { children } = this.props;
+        if (!children) return;
+
+        return React.Children.map(children, (child) => {
+            return React.cloneElement(child, {
+                map: this.map,
+                google: this.props.google,
+                mapCenter: this.state.currentLocation,
+            });
+        });
+    }
     render() {
         const style = {
             width: "100vw",
@@ -58,6 +71,7 @@ export class Map extends React.Component {
         return (
             <div style={style} ref="map">
                 Loading map...
+                {this.renderChildren()}
             </div>
         );
     }

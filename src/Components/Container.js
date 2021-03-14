@@ -1,7 +1,8 @@
 import React from "react";
 
 import { Map } from "./Map";
-import SectionSelect from "./Select";
+import SectionSelect from "./SelectSection";
+import { Marker } from "./Marker";
 
 export class Container extends React.Component {
     render() {
@@ -14,10 +15,14 @@ export class Container extends React.Component {
             return <div>loading ...</div>;
         }
 
+        const pos = { lat: 52.229676, lng: 21.012229 };
         return (
             <div style={style}>
                 <SectionSelect />
-                <Map google={this.props.google} />
+                <Map google={this.props.google}>
+                    <Marker />
+                    <Marker position={pos} />
+                </Map>
             </div>
         );
     }

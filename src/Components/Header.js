@@ -2,6 +2,11 @@ import React from "react";
 
 import Select from "react-select";
 
+import "../Components/Header.css";
+
+import { FcCheckmark } from "react-icons/fc";
+import { IconContext } from "react-icons";
+
 const options1 = [
     { value: "Śródmieście Południowe", label: "Śródmieście Południowe" },
     { value: "Śródmieście Północne", label: "Śródmieście Północne" },
@@ -14,15 +19,15 @@ const options2 = [
 const customStyles = {
     control: (provided) => ({
         ...provided,
-        width: 400,
+        width: 350,
     }),
     option: (provided) => ({
         ...provided,
-        width: 400,
+        width: 350,
     }),
     menu: (provided) => ({
         ...provided,
-        width: 400,
+        width: 350,
     }),
     valueContainer: (provided) => ({
         ...provided,
@@ -65,25 +70,29 @@ export default class Header extends React.Component {
 
         return (
             <header>
-                <Select
-                    value={selectedOption1}
-                    options={options1}
-                    onChange={this.handleOption1Change}
-                    placeholder={"wybierz dzielnicę..."}
-                    styles={customStyles}
-                ></Select>
-                <Select
-                    value={selectedOption2}
-                    options={options2}
-                    onChange={this.handleOption2Change}
-                    placeholder={"wybierz usługę..."}
-                    styles={customStyles}
-                ></Select>
-                <button
-                    style={{ width: "200px", height: "40px" }}
-                    onClick={this.handleSubmit}
-                ></button>
-                <button style={{ width: "200px", height: "40px" }}>Add place</button>
+                <div className="section_select">
+                    <Select
+                        value={selectedOption1}
+                        options={options1}
+                        onChange={this.handleOption1Change}
+                        placeholder={"wybierz dzielnicę..."}
+                        styles={customStyles}
+                    ></Select>
+                    <Select
+                        value={selectedOption2}
+                        options={options2}
+                        onChange={this.handleOption2Change}
+                        placeholder={"wybierz usługę..."}
+                        styles={customStyles}
+                    ></Select>
+                    <IconContext.Provider value={{ size: "2rem" }}>
+                        <button onClick={this.handleSubmit}>
+                            <FcCheckmark></FcCheckmark>
+                        </button>
+                    </IconContext.Provider>
+                </div>
+
+                <button className="button_form">dodaj miejsce</button>
             </header>
         );
     }

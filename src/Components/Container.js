@@ -29,8 +29,12 @@ export class Container extends Component {
         });
     }
 
-    // componentDidUpdate() {
-    //     this.handleMarkerCreate();
+    // componentDidUpdate(prevProps, prevState) {
+    //     if (this.state.Vegan !== prevState.Vegan) {
+    //         this.handleMarkerCreate(this.state.Vegan);
+    //         console.log("test");
+    //         console.log(this.state.Vegan);
+    //     }
     // }
 
     // handleClickButton = (paramFromChild1, paramFromChild2) => {
@@ -43,6 +47,7 @@ export class Container extends Component {
     handleMarkerCreate = (places) => {
         return Object.values(places)
             .filter((place) => {
+                console.log(place);
                 return (
                     this.state.passedSelectedOption1.value === place.locality &&
                     this.state.passedSelectedOption2.value === place.type
@@ -54,7 +59,7 @@ export class Container extends Component {
                         onClick={this.onMarkerClick}
                         key={place.name}
                         restaurant={place}
-                        position={place}
+                        position={{ lat: place.longitude, lng: place.longitude }}
                     />
                 );
             });

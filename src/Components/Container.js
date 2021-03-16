@@ -4,12 +4,14 @@ import { Map, Marker } from "google-maps-react";
 
 import firebase from "../firebase";
 
+import Header from "./Header";
+
 export class Container extends Component {
     state = {
         Vegan: [{ lat: 52.229676, lng: 21.012229 }],
         GlutenFree: [{ lat: 52.329676, lng: 21.412229 }],
-        passedSelectedOption1: "Śródmieście Południowe",
-        passedSelectedOption2: "Vegan",
+        passedSelectedOption1: {},
+        passedSelectedOption2: {},
     };
 
     componentDidMount() {
@@ -24,30 +26,21 @@ export class Container extends Component {
         itemsRef2.on("value", (snapshot) => {
             let glutenfrees = snapshot.val();
             this.setState({
-                Glutenfree: glutenfrees,
+                GlutenFree: glutenfrees,
             });
         });
     }
 
-    // componentDidUpdate(prevProps, prevState) {
-    //     if (this.state.Vegan !== prevState.Vegan) {
-    //         this.handleMarkerCreate(this.state.Vegan);
-    //         console.log("test");
-    //         console.log(this.state.Vegan);
-    //     }
-    // }
-
-    // handleClickButton = (paramFromChild1, paramFromChild2) => {
-    //     this.setState({
-    //         passedSelectedOption1: paramFromChild1,
-    //         passedSelectedOption2: paramFromChild2,
-    //     });
-    // };
+    handleClickButton = (paramFromChild1, paramFromChild2) => {
+        this.setState({
+            passedSelectedOption1: paramFromChild1,
+            passedSelectedOption2: paramFromChild2,
+        });
+    };
 
     handleMarkerCreate = (places) => {
         return Object.values(places)
             .filter((place) => {
-                console.log(place);
                 return (
                     this.state.passedSelectedOption1.value === place.locality &&
                     this.state.passedSelectedOption2.value === place.type
@@ -59,7 +52,7 @@ export class Container extends Component {
                         onClick={this.onMarkerClick}
                         key={place.name}
                         restaurant={place}
-                        position={{ lat: place.longitude, lng: place.longitude }}
+                        position={{ lat: place.latitude, lng: place.longitude }}
                     />
                 );
             });
@@ -71,15 +64,20 @@ export class Container extends Component {
             height: "100vh",
         };
 
+        if (!this.props.loaded) {
+            return <div>Loading...</div>;
+        }
+
         return (
             <div style={style}>
+                <Header clickMethod={this.handleClickButton}></Header>
                 <Map
                     google={this.props.google}
-                    zoom={8}
+                    zoom={14}
                     initialCenter={{ lat: 52.229676, lng: 21.012229 }}
                 >
                     {this.handleMarkerCreate(this.state.Vegan)}
-                    {/* {this.handleMarkerCreate(this.state.Glutenfree)} */}
+                    {this.handleMarkerCreate(this.state.GlutenFree)}
                 </Map>
             </div>
         );

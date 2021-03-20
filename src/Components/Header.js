@@ -20,6 +20,7 @@ const customStyles = {
     control: (provided) => ({
         ...provided,
         width: 350,
+        //zmienna szerokość ekranu 
     }),
     option: (provided) => ({
         ...provided,

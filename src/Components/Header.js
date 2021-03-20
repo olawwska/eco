@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import Select from "react-select";
 
@@ -20,7 +20,7 @@ const customStyles = {
     control: (provided) => ({
         ...provided,
         width: 350,
-        //zmienna szerokość ekranu 
+        //zmienna szerokość ekranu
     }),
     option: (provided) => ({
         ...provided,
@@ -43,58 +43,55 @@ const customStyles = {
     }),
 };
 
-export default class Header extends React.Component {
-    state = {
-        selectedOption1: null,
-        selectedOption2: null,
-    };
+const header = (props, setMapState, mapState) => {
+    // const [selectState, setSelectState] = useState({
+    //     selectedOption1: null,
+    //     selectedOption2: null,
+    // });
 
-    handleOption1Change = (selectedOption1) => {
-        this.setState({ selectedOption1 });
+    const handleOption1Change = (selectedOption1) => {
+        setMapState({ selectedOption1 });
         return selectedOption1;
     };
 
-    handleOption2Change = (selectedOption2) => {
-        this.setState({ selectedOption2 });
+    const handleOption2Change = (selectedOption2) => {
+        setMapState({ selectedOption2 });
         return selectedOption2;
     };
 
-    handleSubmit = () => {
-        if (typeof this.props.clickMethod === "function") {
-            this.props.clickMethod(this.state.selectedOption1, this.state.selectedOption2);
+    const handleSubmit = () => {
+        if (typeof props.clickMethod === "function") {
+            props.clickMethod(mapState.selectedOption1, mapState.selectedOption2);
         }
     };
 
-    render() {
-        const { selectedOption1 } = this.state;
-        const { selectedOption2 } = this.state;
+    return (
+        <header>
+            <div className="section_select">
+                <Select
+                    value={mapState.selectedOption1}
+                    options={options1}
+                    onChange={handleOption1Change}
+                    placeholder={"wybierz dzielnicę..."}
+                    styles={customStyles}
+                ></Select>
+                <Select
+                    value={mapState.selectedOption2}
+                    options={options2}
+                    onChange={handleOption2Change}
+                    placeholder={"wybierz usługę..."}
+                    styles={customStyles}
+                ></Select>
+                <IconContext.Provider value={{ size: "2rem" }}>
+                    <button onClick={handleSubmit}>
+                        <FcCheckmark></FcCheckmark>
+                    </button>
+                </IconContext.Provider>
+            </div>
 
-        return (
-            <header>
-                <div className="section_select">
-                    <Select
-                        value={selectedOption1}
-                        options={options1}
-                        onChange={this.handleOption1Change}
-                        placeholder={"wybierz dzielnicę..."}
-                        styles={customStyles}
-                    ></Select>
-                    <Select
-                        value={selectedOption2}
-                        options={options2}
-                        onChange={this.handleOption2Change}
-                        placeholder={"wybierz usługę..."}
-                        styles={customStyles}
-                    ></Select>
-                    <IconContext.Provider value={{ size: "2rem" }}>
-                        <button onClick={this.handleSubmit}>
-                            <FcCheckmark></FcCheckmark>
-                        </button>
-                    </IconContext.Provider>
-                </div>
+            <button className="button_form">dodaj miejsce</button>
+        </header>
+    );
+};
 
-                <button className="button_form">dodaj miejsce</button>
-            </header>
-        );
-    }
-}
+export default header;

@@ -5,6 +5,7 @@ import { Map, Marker } from "google-maps-react";
 import firebase from "../firebase";
 
 import Header from "./Header";
+import InfoBox from "./InfoBox";
 
 export class Container extends Component {
     state = {
@@ -72,6 +73,12 @@ export class Container extends Component {
             <div style={style}>
                 <Header clickMethod={this.handleClickButton}></Header>
                 <Map
+                    style={{
+                        width: "70%",
+                        height: "70%",
+                        margin: "0 auto",
+                        border: " 10px solid hsl(0, 0%, 80%)",
+                    }}
                     google={this.props.google}
                     zoom={14}
                     initialCenter={{ lat: 52.229676, lng: 21.012229 }}
@@ -83,18 +90,3 @@ export class Container extends Component {
         );
     }
 }
-
-// Map.propTypes = {
-//     google: PropTypes.object,
-//     zoom: PropTypes.number,
-//     initialCenter: PropTypes.object,
-// };
-
-// Map.defaultProps = {
-//     zoom: 12,
-//     //Warsaw by default
-//     initialCenter: {
-//         lat: 52.229676,
-//         lng: 21.012229,
-//     },
-// };

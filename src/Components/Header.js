@@ -2,8 +2,6 @@ import React from "react";
 
 import Select from "react-select";
 
-// import "../Components/Header.css";
-
 import styled from "styled-components";
 
 import { FcCheckmark } from "react-icons/fc";
@@ -44,7 +42,7 @@ const customStyles = {
 
 const StyledHeader = styled.header`
     width: 100%;
-    height: 150px;
+    height: 17%;
     padding: 3.5rem 12.5rem;
     box-sizing: border-box;
     display: flex;

@@ -5,6 +5,7 @@ import { Map, Marker, InfoWindow } from "google-maps-react";
 import firebase from "../firebase";
 
 import Header from "./Header";
+import Form from "./Form";
 
 export class Container extends Component {
     state = {
@@ -98,6 +99,7 @@ export class Container extends Component {
                         height: "70%",
                         margin: "0 auto",
                         border: " 10px solid hsl(0, 0%, 80%)",
+                        zIndex: "-1",
                     }}
                     google={this.props.google}
                     zoom={14}
@@ -121,6 +123,7 @@ export class Container extends Component {
                         ) : null}
                     </InfoWindow>
                 </Map>
+                <Form></Form>
             </div>
         );
     }

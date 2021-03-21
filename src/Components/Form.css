@@ -1,0 +1,28 @@
+.section-form {
+    width: 30%;
+    margin: 0 auto;
+    text-align: left;
+    z-index: 100;
+    background-color: #ffffff;
+}
+
+h2 {
+    padding-top: 5rem;
+    margin: 1rem;
+}
+
+input {
+    width: 82%;
+    display: block;
+    margin: 1.25rem 1.25rem;
+    padding: 0 10px;
+    line-height: 2;
+    border: 1px solid #707070;
+}
+
+.section-form form {
+    height: 70%;
+    border: 1px solid #707070;
+    height: 23rem;
+    text-align: center;
+}

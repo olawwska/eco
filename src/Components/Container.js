@@ -8,8 +8,8 @@ import Header from "./Header";
 
 export class Container extends Component {
     state = {
-        Vegan: [{ lat: 52.229676, lng: 21.012229 }],
-        GlutenFree: [{ lat: 52.329676, lng: 21.412229 }],
+        Vegan: [],
+        GlutenFree: [],
         passedSelectedOption1: {},
         passedSelectedOption2: {},
         showingInfoWindow: false,

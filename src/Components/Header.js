@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import Select from "react-select";
 
@@ -101,57 +101,57 @@ const FormButton = styled.button`
     }
 `;
 
-export default class Header extends React.Component {
-    state = {
+const Header = (props) => {
+    const [selected1State, setSelected1State] = useState({
         selectedOption1: null,
-        selectedOption2: null,
-    };
+    });
 
-    handleOption1Change = (selectedOption1) => {
-        this.setState({ selectedOption1 });
+    const [selected2State, setSelected2State] = useState({
+        selectedOption2: null,
+    });
+
+    const handleOption1Change = (selectedOption1) => {
+        setSelected1State({ selectedOption1 });
         return selectedOption1;
     };
 
-    handleOption2Change = (selectedOption2) => {
-        this.setState({ selectedOption2 });
+    const handleOption2Change = (selectedOption2) => {
+        setSelected2State({ selectedOption2 });
         return selectedOption2;
     };
 
-    handleSubmit = () => {
-        if (typeof this.props.clickMethod === "function") {
-            this.props.clickMethod(this.state.selectedOption1, this.state.selectedOption2);
+    const handleSubmit = () => {
+        if (typeof props.clickMethod === "function") {
+            props.clickMethod(selected1State.selectedOption1, selected2State.selectedOption2);
         }
     };
 
-    render() {
-        const { selectedOption1 } = this.state;
-        const { selectedOption2 } = this.state;
+    return (
+        <StyledHeader>
+            <SectionSelect>
+                <Select
+                    value={selected1State.selectedOption1}
+                    options={options1}
+                    onChange={handleOption1Change}
+                    placeholder={"wybierz dzielnicę..."}
+                    styles={customStyles}
+                ></Select>
+                <Select
+                    value={selected2State.selectedOption2}
+                    options={options2}
+                    onChange={handleOption2Change}
+                    placeholder={"wybierz usługę..."}
+                    styles={customStyles}
+                ></Select>
+                <IconContext.Provider value={{ size: "2rem" }}>
+                    <StyledButton onClick={handleSubmit}>
+                        <FcCheckmark></FcCheckmark>
+                    </StyledButton>
+                </IconContext.Provider>
+            </SectionSelect>
+            <FormButton className="button_form">dodaj miejsce</FormButton>
+        </StyledHeader>
+    );
+};
 
-        return (
-            <StyledHeader>
-                <SectionSelect>
-                    <Select
-                        value={selectedOption1}
-                        options={options1}
-                        onChange={this.handleOption1Change}
-                        placeholder={"wybierz dzielnicę..."}
-                        styles={customStyles}
-                    ></Select>
-                    <Select
-                        value={selectedOption2}
-                        options={options2}
-                        onChange={this.handleOption2Change}
-                        placeholder={"wybierz usługę..."}
-                        styles={customStyles}
-                    ></Select>
-                    <IconContext.Provider value={{ size: "2rem" }}>
-                        <StyledButton onClick={this.handleSubmit}>
-                            <FcCheckmark></FcCheckmark>
-                        </StyledButton>
-                    </IconContext.Provider>
-                </SectionSelect>
-                <FormButton className="button_form">dodaj miejsce</FormButton>
-            </StyledHeader>
-        );
-    }
-}
+export default Header;

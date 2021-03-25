@@ -26,7 +26,7 @@ const Container = (props) => {
         selectedPlace: null,
     });
 
-    const onMarkerClick = (props, marker) => {
+    const onMarkerClick = (marker) => {
         setInfoWindowState({
             showingInfoWindow: true,
             activeMarker: marker,
@@ -81,7 +81,9 @@ const Container = (props) => {
                     <Marker
                         key={place.name}
                         position={{ lat: place.latitude, lng: place.longitude }}
-                        onClick={onMarkerClick}
+                        onClick={() => {
+                            onMarkerClick(place);
+                        }}
                     />
                 );
             });
@@ -102,6 +104,7 @@ const Container = (props) => {
                 zoom={14}
                 initialCenter={{ lat: 52.229676, lng: 21.012229 }}
                 onClick={onMapClick}
+                onChildClick
             >
                 {handleMarkerCreate(mapVeganState.Vegan)}
                 {handleMarkerCreate(mapGlutenfreeState.GlutenFree)}

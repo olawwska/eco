@@ -26,7 +26,7 @@ const Container = (props) => {
         selectedPlace: null,
     });
 
-    const onMarkerClick = (marker) => {
+    const onMarkerClick = (props, marker) => {
         setInfoWindowState({
             showingInfoWindow: true,
             activeMarker: marker,
@@ -62,10 +62,14 @@ const Container = (props) => {
     }, []);
 
     const handleClickButton = (paramFromChild1, paramFromChild2) => {
-        setHeaderSelectState({
-            passedSelectedOption1: paramFromChild1,
-            passedSelectedOption2: paramFromChild2,
-        });
+        if (!paramFromChild1 || !paramFromChild2) {
+            alert("Please select options first");
+        } else {
+            setHeaderSelectState({
+                passedSelectedOption1: paramFromChild1,
+                passedSelectedOption2: paramFromChild2,
+            });
+        }
     };
 
     const handleMarkerCreate = (places) => {
@@ -81,9 +85,8 @@ const Container = (props) => {
                     <Marker
                         key={place.name}
                         position={{ lat: place.latitude, lng: place.longitude }}
-                        onClick={() => {
-                            onMarkerClick(place);
-                        }}
+                        initialCenter={{ lat: 52.229676, lng: 21.012229 }}
+                        onClick={onMarkerClick}
                     />
                 );
             });
